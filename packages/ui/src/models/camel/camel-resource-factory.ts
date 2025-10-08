@@ -1,8 +1,10 @@
 import { CamelYamlDsl, Integration, KameletBinding, Pipe } from '@kaoto/camel-catalog/types';
 
+import { Test } from '../citrus/entities/Test';
 import { XmlCamelResourceSerializer, YamlCamelResourceSerializer } from '../../serializers';
 import { IKameletDefinition } from '../kamelets-catalog';
 import { CamelKResourceFactory } from './camel-k-resource-factory';
+import { CitrusTestResourceFactory } from '../citrus/citrus-test-resource-factory';
 import { CamelResource, CamelResourceSerializer } from './camel-resource';
 import { CamelRouteResource } from './camel-route-resource';
 import { getResourceTypeFromPath } from './source-schema-type';
@@ -21,6 +23,13 @@ export class CamelResourceFactory {
 
     const serializer = this.initSerializer(source, options.path);
     const parsedCode = typeof source === 'string' ? serializer.parse(source) : source;
+
+    const testResource = CitrusTestResourceFactory.getCitrusTestResource(
+        parsedCode as Test,
+        pathResourceType);
+
+    if (testResource) return testResource;
+
     const resource = CamelKResourceFactory.getCamelKResource(
       parsedCode as Integration | KameletBinding | Pipe | IKameletDefinition,
       pathResourceType,

@@ -21,6 +21,7 @@ export interface ISettingsModel {
   colorScheme: ColorScheme;
   experimentalFeatures: {
     enableDragAndDrop: boolean;
+    citrusAgentServiceUrl: string;
   };
 }
 
@@ -36,6 +37,7 @@ export class SettingsModel implements ISettingsModel {
   colorScheme: ColorScheme = ColorScheme.Auto;
   experimentalFeatures = {
     enableDragAndDrop: true,
+    citrusAgentServiceUrl: '',
   };
 
   constructor(options: Partial<ISettingsModel> = {}) {

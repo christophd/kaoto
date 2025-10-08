@@ -7,6 +7,7 @@ import {
   ICamelProcessorProperty,
   IKameletDefinition,
   IKameletSpecProperty,
+  ICitrusComponentDefinition,
 } from '../../models';
 import { IPropertiesRow, IPropertiesTable, PropertiesHeaders, PropertiesTableType } from './PropertiesModal.models';
 
@@ -200,6 +201,37 @@ export const kameletToPropertiesTable = (
       PropertiesHeaders.Type,
       PropertiesHeaders.Default,
       PropertiesHeaders.Example,
+    ],
+    rows: propertiesRows,
+  };
+};
+
+export const actionToPropertiesTable = (
+  actionDef: ICitrusComponentDefinition,
+): IPropertiesTable => {
+  const propertiesRows: IPropertiesRow[] = [];
+  if (actionDef.propertiesSchema?.properties) {
+    // required properties information are not in the property itself but in the required
+    const requiredProperties: string[] = Array.isArray(actionDef.propertiesSchema.required) ?
+        actionDef.propertiesSchema.required : [];
+
+    for (const [key, value] of Object.entries(actionDef.propertiesSchema.properties)) {
+      propertiesRows.push({
+        name: key,
+        description: value.description ?? '',
+        type: value.type?.toString() ?? 'string',
+        rowAdditionalInfo: {
+          required: requiredProperties.includes(key),
+        }
+      });
+    }
+  }
+  return {
+    type: PropertiesTableType.Simple,
+    headers: [
+      PropertiesHeaders.Name,
+      PropertiesHeaders.Description,
+      PropertiesHeaders.Type,
     ],
     rows: propertiesRows,
   };

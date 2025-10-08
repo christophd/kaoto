@@ -8,6 +8,7 @@ export * from './camel-properties-common';
 export * from './catalog-kind';
 export * from './file-types';
 export * from './kamelets-catalog';
+export * from './test-catalog';
 export * from './kaoto-schema';
 export * from './loading-status';
 export * from './local-storage-keys';

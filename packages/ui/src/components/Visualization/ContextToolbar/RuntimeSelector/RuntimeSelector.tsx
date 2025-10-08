@@ -6,6 +6,7 @@ import { FunctionComponent, ReactElement, useCallback, useRef, useState } from '
 import camelLogo from '../../../../assets/camel-logo.svg';
 import quarkusLogo from '../../../../assets/quarkus-logo.svg';
 import redhatLogo from '../../../../assets/redhat-logo.svg';
+import citrusLogo from '../../../../assets/citrus-logo.png';
 import springBootLogo from '../../../../assets/springboot-logo.svg';
 import { useLocalStorage } from '../../../../hooks';
 import { useRuntimeContext } from '../../../../hooks/useRuntimeContext/useRuntimeContext';
@@ -17,6 +18,12 @@ const getIcon = (name: string) => {
     return (
       <Icon>
         <img src={redhatLogo} />
+      </Icon>
+    );
+  } else if (name.includes('Citrus')) {
+    return (
+      <Icon>
+        <img src={citrusLogo} />
       </Icon>
     );
   } else if (name.includes('Quarkus')) {

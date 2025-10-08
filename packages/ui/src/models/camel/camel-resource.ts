@@ -1,5 +1,6 @@
 import { CamelYamlDsl, Integration, Kamelet, KameletBinding, Pipe } from '@kaoto/camel-catalog/types';
 
+import { Test } from '../citrus/entities/Test';
 import { TileFilter } from '../../components/Catalog';
 import { AddStepMode, BaseVisualCamelEntity, IVisualizationNodeData } from '../visualization/base-visual-entity';
 import { BeansEntity } from '../visualization/metadata';
@@ -39,7 +40,7 @@ export enum SerializerType {
 export type Metadata = { [key: string]: unknown };
 
 export interface CamelResourceSerializer {
-  parse: (code: string) => CamelYamlDsl | Integration | Kamelet | KameletBinding | Pipe | undefined;
+  parse: (code: string) => CamelYamlDsl | Integration | Kamelet | KameletBinding | Pipe | Test | undefined;
   serialize: (resource: CamelResource) => string;
   getComments: () => string[];
   setComments: (comments: string[]) => void;

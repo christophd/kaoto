@@ -5,7 +5,7 @@ import { RedoIcon, UndoIcon } from '@patternfly/react-icons';
 import { FunctionComponent, JSX, useContext } from 'react';
 
 import { useUndoRedo } from '../../../hooks/undo-redo.hook';
-import { sourceSchemaConfig } from '../../../models/camel';
+import { sourceSchemaConfig, SourceSchemaType } from '../../../models/camel';
 import { EntitiesContext } from '../../../providers/entities.provider';
 import { ExportDocument } from './ExportDocument/ExportDocument';
 import { FlowClipboard } from './FlowClipboard/FlowClipboard';
@@ -13,6 +13,7 @@ import { FlowExportImage } from './FlowExportImage/FlowExportImage';
 import { FlowsMenu } from './Flows/FlowsMenu';
 import { NewEntity } from './NewEntity/NewEntity';
 import { RuntimeSelector } from './RuntimeSelector/RuntimeSelector';
+import { RunTest } from './RunTest/RunTest';
 
 export const ContextToolbar: FunctionComponent<{ additionalControls?: JSX.Element[] }> = ({ additionalControls }) => {
   const { currentSchemaType } = useContext(EntitiesContext)!;
@@ -32,6 +33,15 @@ export const ContextToolbar: FunctionComponent<{ additionalControls?: JSX.Elemen
       </ToolbarItem>,
     );
   }
+
+  if (currentSchemaType === SourceSchemaType.Test) {
+    toolbarItems.push(
+      <ToolbarItem key="toolbar-run-test">
+        <RunTest />
+      </ToolbarItem>
+    );
+  }
+
   //Currently adding only SerializerSelector at the beginning of the toolbar,
   if (additionalControls) {
     additionalControls.forEach((control) => toolbarItems.unshift(control));

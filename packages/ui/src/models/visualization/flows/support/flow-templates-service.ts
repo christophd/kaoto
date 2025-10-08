@@ -4,6 +4,7 @@ import { SourceSchemaType } from '../../../camel/source-schema-type';
 import { kameletTemplate } from '../templates/kamelet';
 import { pipeTemplate } from '../templates/pipe';
 import { routeTemplate } from '../templates/route';
+import { testTemplate } from '../templates/test';
 
 export class FlowTemplateService {
   static getFlowTemplate = (type: SourceSchemaType) => {
@@ -17,6 +18,9 @@ export class FlowTemplateService {
 
       case SourceSchemaType.Route:
         return routeTemplate();
+
+      case SourceSchemaType.Test:
+        return testTemplate();
 
       case SourceSchemaType.Kamelet:
         return kameletTemplate();

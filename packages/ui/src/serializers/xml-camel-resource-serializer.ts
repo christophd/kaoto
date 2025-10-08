@@ -1,4 +1,5 @@
 import { CamelYamlDsl, Integration, Kamelet, KameletBinding, Pipe } from '@kaoto/camel-catalog/types';
+import { Test } from '../models/citrus/entities/Test';
 import xmlFormat from 'xml-formatter';
 
 import { CamelResource, CamelResourceSerializer, Metadata, SerializerType } from '../models/camel/camel-resource';
@@ -28,7 +29,7 @@ export class XmlCamelResourceSerializer implements CamelResourceSerializer {
     return isXML(code as string);
   }
 
-  parse(code: unknown): CamelYamlDsl | Integration | Kamelet | KameletBinding | Pipe {
+  parse(code: unknown): CamelYamlDsl | Integration | Kamelet | KameletBinding | Pipe | Test {
     const xmlParser = new KaotoXmlParser();
 
     this.metadata.xmlDeclaration = this.parseXmlDeclaration(code as string);
